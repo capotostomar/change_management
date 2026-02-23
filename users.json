@@ -1,0 +1,12 @@
+{
+  "_comment": "ChangeFlow v3 — File utenti. Modifica per aggiungere/rimuovere utenti. Ruoli: admin, change_manager, change_requestor, env_owner, ta, tester",
+  "users": [
+    {"id":"u001","username":"admin",   "password":"admin123", "name":"Admin Sistema",  "initials":"AS","role":"admin",           "team":"IT Management",        "email":"admin@azienda.it"},
+    {"id":"u002","username":"malbini", "password":"change123","name":"Marco Albini",   "initials":"MA","role":"change_manager",  "team":"Change Management",    "email":"m.albini@azienda.it"},
+    {"id":"u003","username":"gbianchi","password":"req123",   "name":"Gianni Bianchi", "initials":"GB","role":"change_requestor","team":"Business Applications", "email":"g.bianchi@azienda.it"},
+    {"id":"u004","username":"arusso",  "password":"env123",   "name":"Anna Russo",     "initials":"AR","role":"env_owner",       "team":"Infrastructure",        "email":"a.russo@azienda.it"},
+    {"id":"u005","username":"sconte",  "password":"ta123",    "name":"Sara Conte",     "initials":"SC","role":"ta",              "team":"Technical Architecture","email":"s.conte@azienda.it"},
+    {"id":"u006","username":"lferri",  "password":"test123",  "name":"Luigi Ferri",    "initials":"LF","role":"tester",          "team":"QA & Testing",          "email":"l.ferri@azienda.it"},
+    {"id":"u007","username":"cneri",   "password":"req456",   "name":"Carla Neri",     "initials":"CN","role":"change_requestor","team":"Business Applications", "email":"c.neri@azienda.it"}
+  ]
+}
