@@ -440,30 +440,27 @@ tr:hover td{background:rgba(255,255,255,.015);}
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal('newChangeModal')">Annulla</button>
-      <button class="btn btn-primary" onclick="submitNewChange()">✓ Invia Change Request</button>
+      <button class="btn btn-primary" onclick="submitNewChange()">✅ Crea Change</button>
     </div>
   </div>
 </div>
 
-<!-- Detail Change Modal -->
-<div class="modal-ov" id="detailModal">
-  <div class="modal modal-wide">
+<!-- Detail Modal -->
+<div class="modal-ov modal-wide" id="detailModal">
+  <div class="modal">
     <div class="modal-hdr">
-      <div style="flex:1">
-        <div class="modal-title" id="dTitle"></div>
-        <div id="dBadges" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;"></div>
-      </div>
+      <div><div class="modal-title" id="dTitle">CHG-2025-001</div><div class="modal-sub" id="dBadges"></div></div>
       <button class="modal-x" onclick="closeModal('detailModal')">✕</button>
     </div>
     <div class="modal-body">
-      <div class="wf" id="dWorkflow"></div>
-      <div id="dApprBar" style="display:none" class="appr-bar"></div>
       <div class="tabs">
-        <div class="tab active" onclick="switchTab(this,'dtab-detail')">Dettagli</div>
-        <div class="tab" onclick="switchTab(this,'dtab-transition')">Transizione</div>
-        <div class="tab" onclick="switchTab(this,'dtab-activity')">Attività</div>
-        <div class="tab" onclick="switchTab(this,'dtab-comments')">Commenti</div>
+        <div class="tab active" onclick="switchTab(this,'dtab-detail')">📋 Dettaglio</div>
+        <div class="tab" onclick="switchTab(this,'dtab-transition')">⚙️ Transizioni</div>
+        <div class="tab" onclick="switchTab(this,'dtab-activity')">📜 Attività</div>
+        <div class="tab" onclick="switchTab(this,'dtab-comments')">💬 Commenti</div>
       </div>
+      <div id="dApprBar" class="appr-bar" style="display:none"></div>
+      <div id="dWorkflow" class="wf" style="margin-bottom:16px"></div>
       <div id="dtab-detail"></div>
       <div id="dtab-transition" style="display:none"></div>
       <div id="dtab-activity" style="display:none"></div>
@@ -472,42 +469,44 @@ tr:hover td{background:rgba(255,255,255,.015);}
   </div>
 </div>
 
-<!-- Add CI Modal -->
+<!-- CI Modal -->
 <div class="modal-ov" id="ciModal">
   <div class="modal">
     <div class="modal-hdr">
-      <div><div class="modal-title">Aggiungi Configuration Item</div><div class="modal-sub">Il CI verrà salvato nel CMDB</div></div>
+      <div><div class="modal-title">Aggiungi Configuration Item</div><div class="modal-sub">CMDB — Configuration Management Database</div></div>
       <button class="modal-x" onclick="closeModal('ciModal')">✕</button>
     </div>
     <div class="modal-body">
       <div class="cmdb-form-row">
         <div class="fg"><label>Nome CI *</label><input id="ciName" placeholder="es. db-prod-01"></div>
-        <div class="fg"><label>Tipo *</label><select id="ciType"><option>Server</option><option>Database</option><option>Network</option><option>Application</option><option>Storage</option><option>Security</option></select></div>
-        <div class="fg"><label>Ambiente</label><select id="ciEnv"><option>PROD</option><option>CERT</option><option>INTEG</option><option>DEV</option><option>MULTI</option></select></div>
-        <div class="fg"><label>Owner</label><select id="ciOwner"></select></div>
-        <div class="fg"><label>Stato</label><select id="ciStatus"><option>Operational</option><option>Maintenance</option><option>Decommissioned</option><option>Planning</option></select></div>
-        <div class="fg"><label>Versione</label><input id="ciVersion" placeholder="es. 19.3.0"></div>
+        <div class="fg"><label>Tipo</label><select id="ciType"><option>Server</option><option>Database</option><option>Network</option><option>Application</option><option>Storage</option><option>Security</option></select></div>
+        <div class="fg"><label>Ambiente</label><select id="ciEnv"><option>DEV</option><option>INTEG</option><option>CERT</option><option>PROD</option></select></div>
       </div>
-      <div class="fg" style="margin-top:4px"><label>Note</label><textarea id="ciNotes" placeholder="Note aggiuntive sul CI..."></textarea></div>
+      <div class="cmdb-form-row">
+        <div class="fg"><label>Owner</label><select id="ciOwner"></select></div>
+        <div class="fg"><label>Stato</label><select id="ciStatus"><option>Operational</option><option>Maintenance</option><option>Decommissioned</option></select></div>
+        <div class="fg"><label>Versione</label><input id="ciVersion" placeholder="es. 2.4.1"></div>
+      </div>
+      <div class="fg"><label>Note</label><textarea id="ciNotes" placeholder="Informazioni aggiuntive..."></textarea></div>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal('ciModal')">Annulla</button>
-      <button class="btn btn-primary" onclick="submitCI()">✓ Aggiungi CI</button>
+      <button class="btn btn-primary" onclick="submitCI()">💾 Salva CI</button>
     </div>
   </div>
 </div>
 
-<!-- Calendar Picker (floating) -->
-<div id="calPickerOv" class="cal-picker-ov" onclick="closeCalPickerIfOutside(event)">
+<!-- Calendar Picker Overlay -->
+<div class="cal-picker-ov" id="calPickerOv" onclick="closeCalPickerIfOutside(event)">
   <div class="cal-picker" id="calPicker">
     <div class="cal-nav">
-      <button class="cal-nav-btn" onclick="calNavMonth(-1)">‹</button>
-      <span class="cal-month-lbl" id="calMonthLbl"></span>
-      <button class="cal-nav-btn" onclick="calNavMonth(1)">›</button>
+      <button class="cal-nav-btn" onclick="calNavMonth(-1)">❮</button>
+      <div class="cal-month-lbl" id="calMonthLbl"></div>
+      <button class="cal-nav-btn" onclick="calNavMonth(1)">❯</button>
     </div>
     <div class="cal-dow-row">
-      <div class="cal-dow">Lu</div><div class="cal-dow">Ma</div><div class="cal-dow">Me</div>
-      <div class="cal-dow">Gi</div><div class="cal-dow">Ve</div><div class="cal-dow">Sa</div><div class="cal-dow">Do</div>
+      <div class="cal-dow">Lun</div><div class="cal-dow">Mar</div><div class="cal-dow">Mer</div>
+      <div class="cal-dow">Gio</div><div class="cal-dow">Ven</div><div class="cal-dow">Sab</div><div class="cal-dow">Dom</div>
     </div>
     <div class="cal-days" id="calDays"></div>
     <div class="cal-time-row">
@@ -522,429 +521,419 @@ tr:hover td{background:rgba(255,255,255,.015);}
 </div>
 
 <script>
-'use strict';
 // ════════════════════════════════════════════
-// CONSTANTS & ROLE DEFINITIONS
-// ════════════════════════════════════════════
-const ENVS = ['DEV','INTEG','CERT','PROD'];
-const ENV_COLORS = {DEV:'#4f7cff',INTEG:'#ffa94d',CERT:'#c084fc',PROD:'#00d4aa'};
-const ROLE_LABELS = {
-  admin:'Admin',change_manager:'Change Manager',
-  change_requestor:'Change Requestor',env_owner:'Environment Owner',
-  ta:'Technical Architect',tester:'Tester'
-};
-
-// Workflow steps & team ownership
-// Each step: {label, team_role, can_approve:[roles], can_request:[roles]}
-const WF_STEPS = [
-  {label:'Aperto',       team:'Change Requestor',  badge:'b-open'},
-  {label:'In Review',    team:'Change Manager',     badge:'b-review'},
-  {label:'Approvato',    team:'Change Manager',     badge:'b-approved'},
-  {label:'Schedulato',   team:'Change Requestor',   badge:'b-scheduled'},
-  {label:'Autorizzato',  team:'Env Owner / TA',     badge:'b-approved'},
-  {label:'In Esecuzione',team:'Tester',             badge:'b-impl'},
-  {label:'Chiuso',       team:'Change Manager',     badge:'b-closed'},
-];
-
-// Who can trigger each transition
-// Key = current status → Value = {to_status, allowed_roles, label}
-const TRANSITIONS = {
-  'Aperto':       [{to:'In Review',       roles:['change_requestor','change_manager','admin'], label:'→ Invia per Review'},
-                   {to:'Rifiutato',       roles:['change_manager','admin'],                   label:'✕ Rifiuta / Chiudi'}],
-  'In Review':    [{to:'Approvato',       roles:['change_manager','admin'],                   label:'✓ Approva'},
-                   {to:'Rifiutato',       roles:['change_manager','admin'],                   label:'✕ Rifiuta'},
-                   {to:'Aperto',          roles:['change_manager','admin'],                   label:'← Ritorna ad Aperto'}],
-  'Approvato':    [{to:'Schedulato',      roles:['change_requestor','change_manager','admin'],label:'📅 Schedula'},
-                   {to:'Rifiutato',       roles:['change_manager','admin'],                   label:'✕ Rifiuta'}],
-  'Schedulato':   [{to:'Autorizzato',     roles:['env_owner','ta','admin'],                   label:'✓ Autorizza Implementazione'},
-                   {to:'Approvato',       roles:['change_requestor','change_manager','admin'],label:'← Rimanda'}],
-  'Autorizzato':  [{to:'In Esecuzione',   roles:['env_owner','ta','admin'],                   label:'▶ Avvia Esecuzione'},
-                   {to:'Schedulato',      roles:['change_manager','admin'],                   label:'← Rimanda'}],
-  'In Esecuzione':[{to:'Chiuso',          roles:['tester','change_manager','admin'],          label:'✓ Chiudi con Successo'},
-                   {to:'Rifiutato',       roles:['tester','change_manager','admin'],          label:'✕ Chiudi con Fallimento'}],
-  'Chiuso':       [{to:'Aperto',          roles:['change_manager','admin'],                   label:'🔄 Riapri'}],
-  'Rifiutato':    [{to:'Aperto',          roles:['change_manager','admin'],                   label:'🔄 Riapri'}],
-};
-
-const STATUS_BADGE = {
-  'Aperto':'b-open','In Review':'b-review','Approvato':'b-approved',
-  'Schedulato':'b-scheduled','Autorizzato':'b-approved','In Esecuzione':'b-impl',
-  'Chiuso':'b-closed','Rifiutato':'b-rejected'
-};
-const STATUS_WF_IDX = {
-  'Aperto':0,'In Review':1,'Approvato':2,'Schedulato':3,'Autorizzato':4,'In Esecuzione':5,'Chiuso':6,'Rifiutato':-1
-};
-
-// ════════════════════════════════════════════
-// PERSISTENCE — localStorage
+// CONFIG & CONSTANTS
 // ════════════════════════════════════════════
 const LS_CHANGES = 'cf_changes_v3';
-const LS_CMDB    = 'cf_cmdb_v3';
-const LS_NOTIFS  = 'cf_notifs_v3';
+const LS_CMDB = 'cf_cmdb_v3';
+const LS_NOTIFS = 'cf_notifs_v3';
+const LS_USER = 'cf_current_user';
 
-function loadData(key, def) {
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; }
-  catch(e) { return def; }
-}
-function saveData(key, data) {
-  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
-}
+const ROLE_LABELS = {
+  admin:'Admin', change_manager:'Change Manager', change_requestor:'Requestor',
+  env_owner:'Env Owner', ta:'Technical Analyst', tester:'Tester'
+};
 
-// ════════════════════════════════════════════
-// USERS — caricati da users.json (con fallback embedded)
-// Il file users.json deve stare nella stessa cartella dell'HTML.
-// Se aperto come file:// locale usa il fallback; se servito via
-// http (anche solo python -m http.server) legge il file reale.
-// ════════════════════════════════════════════
-const USERS_FALLBACK = [
-  {id:'u001',username:'admin',   password:'admin123', name:'Admin Sistema',  initials:'AS',role:'admin',           team:'IT Management',        email:'admin@azienda.it'},
-  {id:'u002',username:'malbini', password:'change123',name:'Marco Albini',   initials:'MA',role:'change_manager',  team:'Change Management',    email:'m.albini@azienda.it'},
-  {id:'u003',username:'gbianchi',password:'req123',   name:'Gianni Bianchi', initials:'GB',role:'change_requestor',team:'Business Applications', email:'g.bianchi@azienda.it'},
-  {id:'u004',username:'arusso',  password:'env123',   name:'Anna Russo',     initials:'AR',role:'env_owner',       team:'Infrastructure',        email:'a.russo@azienda.it'},
-  {id:'u005',username:'sconte',  password:'ta123',    name:'Sara Conte',     initials:'SC',role:'ta',              team:'Technical Architecture',email:'s.conte@azienda.it'},
-  {id:'u006',username:'lferri',  password:'test123',  name:'Luigi Ferri',    initials:'LF',role:'tester',          team:'QA & Testing',          email:'l.ferri@azienda.it'},
-  {id:'u007',username:'cneri',   password:'req456',   name:'Carla Neri',     initials:'CN',role:'change_requestor',team:'Business Applications', email:'c.neri@azienda.it'},
+const STATUS_ORDER = ['Aperto','In Review','Approvato','Schedulato','Autorizzato','In Esecuzione','Chiuso','Rifiutato'];
+const STATUS_WF_IDX = Object.fromEntries(STATUS_ORDER.map((s,i)=>[s,i]));
+const WF_STEPS = [
+  {label:'Aperto', team:'Requestor'},
+  {label:'Review', team:'Change Mgr'},
+  {label:'Approvato', team:'CAB'},
+  {label:'Schedulato', team:'Planning'},
+  {label:'Autorizzato', team:'Env Owner'},
+  {label:'In Esecuzione', team:'Tech Team'},
+  {label:'Chiuso', team:'QA'}
 ];
 
-// USERS inizia vuoto — viene popolato da loadUsers() prima del login
-let USERS = [];
+const TRANSITIONS = {
+  'Aperto': [
+    {to:'In Review', label:'Invia in Review', roles:['change_requestor','change_manager','admin']},
+    {to:'Rifiutato', label:'Rifiuta', roles:['change_manager','admin']}
+  ],
+  'In Review': [
+    {to:'Approvato', label:'Approva', roles:['change_manager','admin']},
+    {to:'Rifiutato', label:'Rifiuta', roles:['change_manager','admin']},
+    {to:'Aperto', label:'Torna a Aperto', roles:['change_manager','admin']}
+  ],
+  'Approvato': [
+    {to:'Schedulato', label:'Pianifica', roles:['change_manager','admin']},
+    {to:'In Review', label:'Torna in Review', roles:['change_manager','admin']}
+  ],
+  'Schedulato': [
+    {to:'Autorizzato', label:'Autorizza Esecuzione', roles:['env_owner','admin']},
+    {to:'Approvato', label:'Torna ad Approvato', roles:['change_manager','admin']}
+  ],
+  'Autorizzato': [
+    {to:'In Esecuzione', label:'Avvia Esecuzione', roles:['ta','admin']},
+    {to:'Schedulato', label:'Torna a Schedulato', roles:['env_owner','admin']}
+  ],
+  'In Esecuzione': [
+    {to:'Chiuso', label:'Chiudi (Successo)', roles:['ta','tester','admin']},
+    {to:'Rifiutato', label:'Segnala Fallimento', roles:['ta','tester','admin']}
+  ],
+  'Chiuso': [],
+  'Rifiutato': [
+    {to:'Aperto', label:'Riapri', roles:['change_requestor','change_manager','admin']}
+  ]
+};
+
+const ENVIRONMENTS = ['DEV','INTEG','CERT','PROD'];
 
 // ════════════════════════════════════════════
-// DEFAULT CHANGES DATA
+// USERS — fallback se users.json non disponibile
+// ════════════════════════════════════════════
+const USERS_FALLBACK = [
+  {id:'u1', name:'Mario Albini', username:'malbini', password:'demo', role:'admin', team:'Infra', email:'m.albini@company.local', initials:'MA'},
+  {id:'u2', name:'Laura Bianchi', username:'lbianchi', password:'demo', role:'change_manager', team:'Change', email:'l.bianchi@company.local', initials:'LB'},
+  {id:'u3', name:'Giuseppe Rossi', username:'grossi', password:'demo', role:'change_requestor', team:'Dev', email:'g.rossi@company.local', initials:'GR'},
+  {id:'u4', name:'Anna Verdi', username:'averdi', password:'demo', role:'env_owner', team:'ProdOps', email:'a.verdi@company.local', initials:'AV'},
+  {id:'u5', name:'Marco Neri', username:'mneri', password:'demo', role:'ta', team:'Infra', email:'m.neri@company.local', initials:'MN'},
+  {id:'u6', name:'Sofia Colombo', username:'scolombo', password:'demo', role:'tester', team:'QA', email:'s.colombo@company.local', initials:'SC'}
+];
+let USERS = [...USERS_FALLBACK];
+
+// ════════════════════════════════════════════
+// DEFAULT DATA
 // ════════════════════════════════════════════
 const CHANGES_DEFAULT = [
-  {id:'CHG-2025-001',title:'Aggiornamento firmware switch core DC01',type:'Normale',priority:'Alta',status:'In Review',requesterId:'u003',assigneeId:'u004',category:'Network',risk:'Alto',impact:'Alto',opened:'2025-01-15',window:'2025-02-01 22:00',windowEnd:'2025-02-02 02:00',pipeline:['done','active','pending','pending'],pipelineStrategy:'full',currentEnv:1,deps:[],incidents:[{id:'INC-0042',desc:'Flap interfaccia dopo patch precedente',sev:'P3'}],desc:'Aggiornamento firmware switch core DC01 alla versione 15.2.7. Necessario per CVE-2024-3892 e miglioramenti routing BGP.',rollback:'Downgrade alla versione 15.2.5 tramite USB recovery. Tempo: 15 min.',test:'Ping sweep, test BGP neighbors, verifica connettività tutti segmenti.',comments:[{userId:'u005',name:'Sara Conte',initials:'SC',time:'2025-01-15 14:30',text:'Documentazione tecnica OK. Aggiungere notifica utenti.'},{userId:'u006',name:'Luigi Ferri',initials:'LF',time:'2025-01-16 09:00',text:'Finestra confermata con operations.'}],history:[{action:'Change aperto',userId:'u003',time:'2025-01-15 09:00'},{action:'Inviato per Review',userId:'u003',time:'2025-01-15 11:00'}]},
-  {id:'CHG-2025-002',title:'Deploy applicazione CRM v3.4.1',type:'Standard',priority:'Media',status:'Autorizzato',requesterId:'u004',assigneeId:'u004',category:'Applicazioni',risk:'Medio',impact:'Medio',opened:'2025-01-18',window:'2025-02-07 23:00',windowEnd:'2025-02-08 03:00',pipeline:['done','done','done','pending'],pipelineStrategy:'full',currentEnv:3,deps:['CHG-2025-001'],incidents:[],desc:'Deploy CRM v3.4.1: integrazione billing, nuova dashboard analytics, fix 12 bug critici.',rollback:'Revert container Docker v3.3.8 via pipeline CI/CD.',test:'Smoke test suite automatizzata + verifica manuale flussi critici.',comments:[],history:[{action:'Change aperto',userId:'u004',time:'2025-01-18 09:00'},{action:'Inviato per Review',userId:'u004',time:'2025-01-18 14:00'},{action:'Approvato dal Change Manager',userId:'u002',time:'2025-01-19 10:00'},{action:'Schedulato',userId:'u003',time:'2025-01-20 09:00'},{action:'Autorizzato dall\'Env Owner',userId:'u004',time:'2025-01-21 10:00'}]},
-  {id:'CHG-2025-003',title:'Migrazione database Oracle → PostgreSQL',type:'Normale',priority:'Critica',status:'Aperto',requesterId:'u002',assigneeId:'u006',category:'Database',risk:'Critico',impact:'Alto',opened:'2025-01-20',window:'',windowEnd:'',pipeline:['active','pending','pending','pending'],pipelineStrategy:'full',currentEnv:0,deps:[],incidents:[],desc:'Migrazione DB applicativo Oracle 19c → PostgreSQL 16. Include schema, dati storici 5 anni, stored procedure, job notturni.',rollback:'Oracle attivo 30 giorni post-migrazione come fallback. Replica bidirezionale durante transizione.',test:'Test performance query critiche. Verifica integrità via checksum. UAT team applicativo.',comments:[],history:[{action:'Change aperto',userId:'u002',time:'2025-01-20 09:00'}]},
-  {id:'CHG-2025-004',title:'Sostituzione certificati SSL scaduti',type:'Standard',priority:'Alta',status:'Chiuso',requesterId:'u005',assigneeId:'u005',category:'Security',risk:'Basso',impact:'Basso',opened:'2025-01-10',window:'2025-01-28 02:00',windowEnd:'2025-01-28 04:00',pipeline:['skip','skip','done','done'],pipelineStrategy:'skip-dev',currentEnv:4,deps:[],incidents:[],desc:'Rinnovo e deploy certificati SSL/TLS per domini aziendali. Scadenza 15 febbraio 2025.',rollback:'Restore certificati precedenti da backup.',test:'Verifica catena certificazione con openssl. Test HTTPS su tutti i servizi.',comments:[],history:[{action:'Change aperto',userId:'u005',time:'2025-01-10 09:00'},{action:'Approvato',userId:'u002',time:'2025-01-11 10:00'},{action:'Schedulato',userId:'u003',time:'2025-01-12 09:00'},{action:'Autorizzato',userId:'u004',time:'2025-01-12 14:00'},{action:'Esecuzione avviata',userId:'u006',time:'2025-01-28 02:05'},{action:'Chiuso con successo',userId:'u006',time:'2025-01-28 03:45'}]},
-  {id:'CHG-2025-005',title:'Patching emergenza server web prod',type:'Emergenza',priority:'Critica',status:'In Esecuzione',requesterId:'u003',assigneeId:'u004',category:'Server',risk:'Alto',impact:'Alto',opened:'2025-01-24',window:'2025-01-24 09:00',windowEnd:'2025-01-24 12:00',pipeline:['skip','skip','skip','active'],pipelineStrategy:'direct',currentEnv:3,deps:[],incidents:[{id:'INC-0051',desc:'Exploit attivo CVE-2025-0234 rilevato in produzione',sev:'P1'}],desc:'Patch di sicurezza CVE-2025-0234 (CVSS 9.8) su server web PROD. Vulnerabilità RCE attivamente sfruttata.',rollback:'Snapshot VM eseguito. Rollback max 10 min via ripristino snapshot.',test:'Scanner vulnerabilità post-patch. Test funzionale applicazione.',comments:[{userId:'u002',name:'Marco Albini',initials:'MA',time:'2025-01-24 08:45',text:'URGENTE: Procedura emergenza CAB attivata. Autorizzazione verbale CIO.'}],history:[{action:'Change aperto (EMERGENZA)',userId:'u003',time:'2025-01-24 08:30'},{action:'Autorizzato in emergenza',userId:'u004',time:'2025-01-24 08:50'},{action:'Esecuzione avviata',userId:'u006',time:'2025-01-24 09:05'}]},
-  {id:'CHG-2025-006',title:'Espansione storage SAN cluster prod',type:'Normale',priority:'Media',status:'Aperto',requesterId:'u006',assigneeId:'u002',category:'Storage',risk:'Medio',impact:'Medio',opened:'2025-01-25',window:'',windowEnd:'',pipeline:['active','pending','pending','pending'],pipelineStrategy:'full',currentEnv:0,deps:[],incidents:[],desc:'Aggiunta 4 shelf da 48TB al cluster SAN di produzione. Crescita dati prevista Q1 2025.',rollback:'Rimozione shelf aggiuntivi se instabilità.',test:'Test I/O performance post-espansione. Verifica ridondanza e failover.',comments:[],history:[{action:'Change aperto',userId:'u006',time:'2025-01-25 09:00'}]},
+  {
+    id:'CHG-2025-001', title:'Aggiornamento firewall regole DMZ',
+    type:'Normale', priority:'Alta', status:'In Review',
+    requesterId:'u3', assigneeId:'u5', category:'Security',
+    risk:'Medio', impact:'Alto', opened:'2025-02-10',
+    window:'2025-02-20 22:00', windowEnd:'2025-02-20 23:30',
+    pipeline:['done','active','pending','pending'],
+    pipelineStrategy:'full', currentEnv:1,
+    deps:[], incidents:[],
+    desc:'Aggiornamento regole firewall per nuova applicazione in DMZ. Necessario per apertura porte 8443/TCP e 5672/TCP verso subnet 10.20.30.0/24.',
+    rollback:'Ripristino configurazione precedente da backup automatico (snapshot pre-change).',
+    test:'Verifica connettività applicazione verso servizi backend; test di failover.',
+    comments:[
+      {userId:'u2', name:'Laura Bianchi', initials:'LB', time:'2025-02-11 09:15', text:'Richiesta documentazione di impatto completa prima dell\'approvazione.'}
+    ],
+    history:[
+      {action:'Change aperto', userId:'u3', time:'2025-02-10 14:30'},
+      {action:'Aperto → In Review', userId:'u3', time:'2025-02-10 14:35'}
+    ]
+  },
+  {
+    id:'CHG-2025-002', title:'Patch critica Oracle DB - CVE-2025-1234',
+    type:'Emergenza', priority:'Critica', status:'Autorizzato',
+    requesterId:'u4', assigneeId:'u5', category:'Database',
+    risk:'Alto', impact:'Critico', opened:'2025-02-12',
+    window:'2025-02-15 02:00', windowEnd:'2025-02-15 04:00',
+    pipeline:['skip','skip','skip','active'],
+    pipelineStrategy:'direct', currentEnv:3,
+    deps:[], incidents:[{id:'INC-8821', desc:'Performance degradation query critiche', sev:'P1'}],
+    desc:'Applicazione patch di sicurezza urgente per vulnerabilità critica Oracle Database. Richiede downtime di 90 minuti.',
+    rollback:'Restore da backup pre-patch + applicazione script di recovery.',
+    test:'Esecuzione suite di query di benchmark; verifica integrità dati post-patch.',
+    comments:[
+      {userId:'u1', name:'Mario Albini', initials:'MA', time:'2025-02-12 16:20', text:'Approvato in emergency CAB. Coordinare con team DBA.'}
+    ],
+    history:[
+      {action:'Change aperto', userId:'u4', time:'2025-02-12 15:45'},
+      {action:'Aperto → In Review', userId:'u4', time:'2025-02-12 15:46'},
+      {action:'In Review → Approvato', userId:'u1', time:'2025-02-12 16:10'},
+      {action:'Approvato → Schedulato', userId:'u2', time:'2025-02-12 16:15'},
+      {action:'Schedulato → Autorizzato', userId:'u4', time:'2025-02-12 16:18'}
+    ]
+  }
 ];
 
 const CMDB_DEFAULT = [
-  {id:'ci001',name:'switch-core-dc01',type:'Network',env:'PROD',ownerId:'u004',status:'Operational',version:'15.2.5',notes:'Switch core principale DC01',createdAt:'2024-01-10'},
-  {id:'ci002',name:'db-oracle-prod01',type:'Database',env:'PROD',ownerId:'u006',status:'Operational',version:'19c',notes:'Database applicativo principale',createdAt:'2024-01-10'},
-  {id:'ci003',name:'web-farm-prod',type:'Server',env:'PROD',ownerId:'u004',status:'Maintenance',version:'Linux 5.15',notes:'Farm server web produzione (3 nodi)',createdAt:'2024-01-10'},
-  {id:'ci004',name:'san-cluster-01',type:'Storage',env:'PROD',ownerId:'u002',status:'Operational',version:'—',notes:'Cluster SAN principale',createdAt:'2024-01-10'},
-  {id:'ci005',name:'crm-app',type:'Application',env:'MULTI',ownerId:'u004',status:'Operational',version:'3.3.8',notes:'CRM aziendale',createdAt:'2024-01-10'},
-  {id:'ci006',name:'firewall-perimetrale',type:'Security',env:'PROD',ownerId:'u005',status:'Operational',version:'v9.1.4',notes:'Firewall perimetrale principale',createdAt:'2024-01-10'},
+  {id:'ci1', name:'db-prod-oracle-01', type:'Database', env:'PROD', ownerId:'u4', status:'Operational', version:'19c', notes:'Primary RAC node 1', createdAt:'2025-01-15'},
+  {id:'ci2', name:'fw-dmz-primary', type:'Security', env:'PROD', ownerId:'u5', status:'Operational', version:'7.2.1', notes:'Firewall perimeter DMZ', createdAt:'2025-01-10'},
+  {id:'ci3', name:'app-invoice-svc', type:'Application', env:'PROD', ownerId:'u3', status:'Operational', version:'3.4.2', notes:'Microservizio fatturazione', createdAt:'2025-02-01'}
 ];
 
-let changes = loadData(LS_CHANGES, null) || JSON.parse(JSON.stringify(CHANGES_DEFAULT));
-if(!changes.length) { changes = JSON.parse(JSON.stringify(CHANGES_DEFAULT)); saveData(LS_CHANGES, changes); }
-let cmdbItems = loadData(LS_CMDB, null) || JSON.parse(JSON.stringify(CMDB_DEFAULT));
-if(!cmdbItems.length) { cmdbItems = JSON.parse(JSON.stringify(CMDB_DEFAULT)); saveData(LS_CMDB, cmdbItems); }
-let notifications = loadData(LS_NOTIFS, []);
-
 // ════════════════════════════════════════════
-// AUTH STATE
+// GLOBAL STATE
 // ════════════════════════════════════════════
 let currentUser = null;
+let changes = [];
+let cmdbItems = [];
+let notifications = [];
 let currentChangeId = null;
 
-function canDo(roles) { return roles.includes(currentUser?.role); }
-function canSee(change) {
-  if(!currentUser) return false;
-  const r = currentUser.role;
-  if(r==='admin'||r==='change_manager') return true;
-  if(r==='change_requestor') return change.requesterId===currentUser.id || change.assigneeId===currentUser.id || USERS.find(u=>u.id===change.requesterId)?.team===currentUser.team;
-  if(r==='env_owner'||r==='ta'||r==='tester') return change.assigneeId===currentUser.id;
-  return false;
+// ════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════
+function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+function loadData(key, fallback) {
+  try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : fallback; }
+  catch { return fallback; }
 }
-function visibleChanges() { return changes.filter(canSee); }
+function userInitials(uid) { const u = USERS.find(x=>x.id===uid); return u?.initials || '?'; }
+function userName(uid) { const u = USERS.find(x=>x.id===uid); return u?.name || 'Sconosciuto'; }
+function canDo(roles) { return currentUser && roles.includes(currentUser.role); }
+
+function sBadge(s) {
+  const cls = {Aperto:'b-open','In Review':'b-review',Approvato:'b-approved',Schedulato:'b-scheduled',Autorizzato:'b-approved','In Esecuzione':'b-impl',Chiuso:'b-closed',Rifiutato:'b-rejected'}[s]||'b-open';
+  return `<span class="badge ${cls}">${s}</span>`;
+}
+function pBadge(p) {
+  const cls = {Bassa:'prio-l',Media:'prio-m',Alta:'prio-h',Critica:'prio-c'}[p]||'prio-m';
+  return `<span class="prio ${cls}">⚑ ${p}</span>`;
+}
+function rBadge(r) {
+  const col = {Basso:'var(--accent2)',Medio:'var(--accent4)',Alto:'var(--accent3)',Critico:'#ff4757'}[r]||'var(--text3)';
+  return `<span style="font-size:12px;color:${col}">● ${r}</span>`;
+}
+function envInline(c) {
+  const idx = c.currentEnv ?? 0;
+  return `<div class="env-inline">${ENVIRONMENTS.map((e,i)=>`<span class="env-pip" style="background:${i<idx?'var(--accent2)':i===idx?'var(--accent)':'var(--surface3)'};color:${i<=idx?'#fff':'var(--text3)'}">${e.charAt(0)}</span>${i<3?'<span class="env-arrow-sm">→</span>':''}`).join('')}</div>`;
+}
 
 // ════════════════════════════════════════════
-// LOGIN
+// LOGIN / LOGOUT
 // ════════════════════════════════════════════
 function initLogin() {
+  // Login hints
   const hints = document.getElementById('loginHints');
-  USERS.forEach(u=>{
-    const pill = document.createElement('span');
-    pill.className='login-user-pill';
-    pill.textContent=`${u.username} (${ROLE_LABELS[u.role]||u.role})`;
-    pill.onclick=()=>{ document.getElementById('loginUser').value=u.username; document.getElementById('loginPass').value=u.password; };
-    hints.appendChild(pill);
-  });
+  if(hints) {
+    hints.innerHTML = USERS.slice(0,4).map(u=>`<span class="login-user-pill" onclick="document.getElementById('loginUser').value='${u.username}';document.getElementById('loginPass').value='demo'">${u.username} <span style="color:var(--text3)">(${ROLE_LABELS[u.role]})</span></span>`).join('');
+  }
+  // Auto-login se sessione attiva
+  const saved = localStorage.getItem(LS_USER);
+  if(saved) {
+    try {
+      const u = JSON.parse(saved);
+      const valid = USERS.find(x=>x.username===u.username && x.password===u.password);
+      if(valid) { currentUser = valid; showApp(); return; }
+    } catch {}
+  }
 }
 
 function doLogin() {
-  const user = document.getElementById('loginUser').value.trim();
-  const pass  = document.getElementById('loginPass').value;
-  const found = USERS.find(u=>u.username===user && u.password===pass);
-  if(!found) { document.getElementById('loginErr').textContent='Credenziali non valide'; return; }
-  currentUser = found;
-  document.getElementById('loginScreen').style.display='none';
+  const userIn = document.getElementById('loginUser').value.trim();
+  const passIn = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginErr');
+  err.textContent = '';
+  const u = USERS.find(x => x.username===userIn && x.password===passIn);
+  if(!u) { err.textContent = 'Credenziali non valide'; return; }
+  currentUser = u;
+  localStorage.setItem(LS_USER, JSON.stringify({username:u.username, password:u.password}));
+  showApp();
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('appScreen').classList.add('visible');
-  setupApp();
-}
-function doLogout() {
-  currentUser=null;
-  document.getElementById('appScreen').classList.remove('visible');
-  document.getElementById('loginScreen').style.display='flex';
-  document.getElementById('loginUser').value='';
-  document.getElementById('loginPass').value='';
-  document.getElementById('loginErr').textContent='';
-}
-
-// ════════════════════════════════════════════
-// APP SETUP (post-login)
-// ════════════════════════════════════════════
-const NAV_ITEMS = [
-  {id:'dashboard',label:'Dashboard',icon:'grid',roles:['admin','change_manager','change_requestor','env_owner','ta','tester']},
-  {id:'changes',  label:'Change',   icon:'list',roles:['admin','change_manager','change_requestor','env_owner','ta','tester'],badge:'nbAll'},
-  {id:'approvals',label:'Approvazioni',icon:'check',roles:['admin','change_manager'],badge:'nbAppr',badgeClass:'red'},
-  {id:'calendar', label:'Calendario',icon:'cal',roles:['admin','change_manager','change_requestor','env_owner']},
-  {id:'reports',  label:'Report',   icon:'bar',roles:['admin','change_manager']},
-  {id:'cmdb',     label:'CMDB',     icon:'srv',roles:['admin','change_manager','env_owner','ta']},
-  {id:'config',   label:'Config / Utenti',icon:'cog',roles:['admin']},
-];
-
-const ICONS = {
-  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
-  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
-  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-  bar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
-  srv:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
-  cog:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>',
-};
-
-function setupApp() {
+  
+  // ═════ BONUS: Visibilità bottone "Nuovo Change" per ruolo ═════
+  const btnNewChange = document.getElementById('btnNewChange');
+  if(btnNewChange && typeof currentUser !== 'undefined') {
+    const allowedRoles = ['change_requestor', 'change_manager', 'admin'];
+    btnNewChange.style.display = allowedRoles.includes(currentUser.role) ? 'inline-flex' : 'none';
+  }
+  // ═════ FINE BONUS ═════
+  
   // Sidebar user info
-  document.getElementById('sideAvatar').textContent = currentUser.initials;
   document.getElementById('sideName').textContent = currentUser.name;
-  document.getElementById('sideRoleTag').textContent = ROLE_LABELS[currentUser.role]||currentUser.role;
-
-  // Show "Nuovo" button for requestors & managers
-  const canCreate = ['admin','change_manager','change_requestor'].includes(currentUser.role);
-  document.getElementById('btnNewChange').style.display = canCreate ? 'inline-flex' : 'none';
-
-  // Build nav
-  const nav = document.getElementById('sideNav');
-  nav.innerHTML='';
-  let first = null;
-  NAV_ITEMS.forEach(item=>{
-    if(!item.roles.includes(currentUser.role)) return;
-    const div = document.createElement('div');
-    div.className='nav-item'+(first===null?' active':'');
-    div.id='nav-'+item.id;
-    div.innerHTML=`<svg class="nav-icon">${ICONS[item.icon]||''}</svg> ${item.label} ${item.badge?`<span class="nav-badge ${item.badgeClass||''}" id="${item.badge}">0</span>`:''}`;
-    div.onclick=()=>showPage(item.id, div);
-    nav.appendChild(div);
-    if(first===null) first=item.id;
-  });
-
-  // Populate assignee select in new change form
-  populateAssigneeSelect();
-  populateCIOwnerSelect();
-
+  document.getElementById('sideRoleTag').textContent = ROLE_LABELS[currentUser.role];
+  document.getElementById('sideAvatar').textContent = currentUser.initials;
+  
+  // Load data
+  changes = loadData(LS_CHANGES, [...CHANGES_DEFAULT]);
+  cmdbItems = loadData(LS_CMDB, [...CMDB_DEFAULT]);
+  notifications = loadData(LS_NOTIFS, []);
+  
+  // Init UI
+  renderNav();
   renderNotifList();
-  showPage(first||'dashboard', document.getElementById('nav-'+(first||'dashboard')));
-}
-
-function populateAssigneeSelect() {
-  const sel = document.getElementById('nAssignee');
-  if(!sel) return;
-  sel.innerHTML = USERS.map(u=>`<option value="${u.id}">${u.name} (${ROLE_LABELS[u.role]})</option>`).join('');
-}
-function populateCIOwnerSelect() {
-  const sel = document.getElementById('ciOwner');
-  if(!sel) return;
-  sel.innerHTML = USERS.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
-}
-
-// ════════════════════════════════════════════
-// NAVIGATION & PAGE RENDERING
-// ════════════════════════════════════════════
-function showPage(id, el) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const pg = document.getElementById('page-'+id);
-  if(pg) { pg.classList.add('active'); pg.innerHTML=''; }
-  if(el) el.classList.add('active');
-  const titles={dashboard:'Dashboard',changes:'Tutti i Change',approvals:'Approvazioni',calendar:'Calendario',reports:'Report',cmdb:'CMDB',config:'Configurazione'};
-  document.getElementById('pageTitle').textContent = titles[id]||id;
-  if(id==='dashboard')  renderDashboard();
-  if(id==='changes')    renderChanges();
-  if(id==='approvals')  renderApprovals();
-  if(id==='calendar')   renderCalendar();
-  if(id==='reports')    renderReports();
-  if(id==='cmdb')       renderCMDB();
-  if(id==='config')     renderConfig();
   updateBadges();
+  showPage('dashboard', document.getElementById('nav-dashboard'));
+}
+
+function doLogout() {
+  currentUser = null;
+  localStorage.removeItem(LS_USER);
+  document.getElementById('appScreen').classList.remove('visible');
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginErr').textContent = '';
+}
+
+// ════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════
+function renderNav() {
+  const nav = document.getElementById('sideNav');
+  const items = [
+    {id:'dashboard', icon:'📊', label:'Dashboard'},
+    {id:'changes', icon:'🔄', label:'Change Requests'},
+    {id:'approvals', icon:'✅', label:'Approvazioni', roles:['change_manager','admin']},
+    {id:'calendar', icon:'📅', label:'Calendar'},
+    {id:'reports', icon:'📈', label:'Reports', roles:['change_manager','admin']},
+    {id:'cmdb', icon:'🗄', label:'CMDB'},
+    {id:'config', icon:'⚙️', label:'Config', roles:['admin']}
+  ];
+  nav.innerHTML = items.map(it=>{
+    if(it.roles && !it.roles.includes(currentUser.role)) return '';
+    return `<div class="nav-sect">${it.label}</div>
+      <div class="nav-item" id="nav-${it.id}" onclick="showPage('${it.id}',this)">
+        <span class="nav-icon">${it.icon}</span> ${it.label}
+        ${it.id==='approvals'?`<span class="nav-badge orange" id="badge-approvals" style="display:none">0</span>`:''}
+        ${it.id==='changes'?`<span class="nav-badge" id="badge-open" style="display:none">0</span>`:''}
+      </div>`;
+  }).join('');
+}
+
+function showPage(pageId, navEl) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(`page-${pageId}`).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+  
+  document.getElementById('pageTitle').textContent = {
+    dashboard:'Dashboard', changes:'Change Requests', approvals:'Approvazioni',
+    calendar:'Calendar', reports:'Reports', cmdb:'CMDB', config:'Configurazione'
+  }[pageId] || 'ChangeFlow';
+  
+  // Render page content
+  if(pageId==='dashboard') renderDashboard();
+  if(pageId==='changes') renderChanges();
+  if(pageId==='approvals') renderApprovals();
+  if(pageId==='calendar') renderCalendar();
+  if(pageId==='reports') renderReports();
+  if(pageId==='cmdb') renderCMDB();
+  if(pageId==='config') renderConfig();
 }
 
 function updateBadges() {
-  const vc = visibleChanges();
-  const el = id=>document.getElementById(id);
-  if(el('nbAll')) el('nbAll').textContent = vc.filter(c=>c.status!=='Chiuso').length;
-  if(el('nbAppr')) el('nbAppr').textContent = vc.filter(c=>c.status==='In Review').length;
-}
-
-// ════════════════════════════════════════════
-// BADGE HELPERS
-// ════════════════════════════════════════════
-function sBadge(s) { return `<span class="badge ${STATUS_BADGE[s]||'b-closed'}">${s}</span>`; }
-function pBadge(p) {
-  const m={Critica:['🔴','prio-c'],Alta:['🟠','prio-h'],Media:['🔵','prio-m'],Bassa:['⚪','prio-l']};
-  const [icon,cls]=m[p]||['',''];
-  return `<span class="prio ${cls}">${icon} ${p}</span>`;
-}
-function rBadge(r) {
-  const m={Critico:'b-rejected',Alto:'b-scheduled',Medio:'b-review',Basso:'b-approved'};
-  return `<span class="badge ${m[r]||'b-closed'}">${r}</span>`;
-}
-function userName(id) { return USERS.find(u=>u.id===id)?.name || '—'; }
-function userInitials(id) { return USERS.find(u=>u.id===id)?.initials || '?'; }
-function envInline(c) {
-  return `<div class="env-inline">${ENVS.map((e,i)=>{
-    const s=c.pipeline[i];
-    const bg=s==='done'?ENV_COLORS[e]:s==='active'?ENV_COLORS[e]:s==='skip'?'#c084fc':'var(--surface3)';
-    const op=s==='pending'?'.35':'1';
-    const ic=s==='done'?'✓':s==='active'?'▶':s==='skip'?'⤵':e[0];
-    return `<div class="env-pip" style="background:${bg};opacity:${op};color:${s==='pending'?'var(--text3)':'#fff'}">${ic}</div>${i<3?`<span class="env-arrow-sm">›</span>`:''}`;
-  }).join('')}</div>`;
+  const open = changes.filter(c=>c.status==='Aperto').length;
+  const appr = changes.filter(c=>c.status==='In Review' && canDo(['change_manager','admin'])).length;
+  const bOpen = document.getElementById('badge-open');
+  const bAppr = document.getElementById('badge-approvals');
+  if(bOpen) { bOpen.textContent = open; bOpen.style.display = open>0?'inline-block':'none'; }
+  if(bAppr) { bAppr.textContent = appr; bAppr.style.display = appr>0?'inline-block':'none'; }
 }
 
 // ════════════════════════════════════════════
 // DASHBOARD
 // ════════════════════════════════════════════
 function renderDashboard() {
-  const vc = visibleChanges();
-  const open   = vc.filter(c=>c.status==='Aperto').length;
-  const review = vc.filter(c=>c.status==='In Review').length;
-  const auth   = vc.filter(c=>['Autorizzato','In Esecuzione'].includes(c.status)).length;
-  const closed = vc.filter(c=>c.status==='Chiuso').length;
-  const pg = document.getElementById('page-dashboard');
-  pg.innerHTML=`
+  const vc = changes;
+  const byStatus = Object.fromEntries(STATUS_ORDER.map(s=>[s, vc.filter(c=>c.status===s).length]));
+  const stats = [
+    {n:byStatus['Aperto']||0, l:'Aperti', t:'Da prendere in carico', c:'#ff6b6b'},
+    {n:byStatus['In Review']||0, l:'In Review', t:'In attesa di approvazione', c:'#4f7cff'},
+    {n:byStatus['Schedulato']||0, l:'Schedulati', t:'In pianificazione', c:'#ffa94d'},
+    {n:byStatus['In Esecuzione']||0, l:'In Esecuzione', t:'Change attivi', c:'#ffa94d'},
+    {n:byStatus['Chiuso']||0, l:'Chiusi', t:'Completati con successo', c:'#00d4aa'}
+  ];
+  
+  document.getElementById('page-dashboard').innerHTML = `
   <div class="stats-grid">
-    <div class="stat-card" style="--bc:var(--accent3)" onclick="navFilter('Aperto')"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent3)"></div><div class="stat-n" style="color:var(--accent3)">${open}</div><div class="stat-l">Aperti</div><div class="stat-t">↑ cambia filtro</div></div>
-    <div class="stat-card" onclick="navFilter('In Review')"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)"></div><div class="stat-n" style="color:var(--accent)">${review}</div><div class="stat-l">In Approvazione</div><div class="stat-t">CAB Review</div></div>
-    <div class="stat-card" onclick="navFilter('Autorizzato')"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent4)"></div><div class="stat-n" style="color:var(--accent4)">${auth}</div><div class="stat-l">Autorizzati/In Esecuzione</div><div class="stat-t">→ Live</div></div>
-    <div class="stat-card" onclick="navFilter('Chiuso')"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent2)"></div><div class="stat-n" style="color:var(--accent2)">${closed}</div><div class="stat-l">Chiusi</div><div class="stat-t">↑ YTD</div></div>
-    <div class="stat-card"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent5)"></div><div class="stat-n" style="color:var(--accent5)">${vc.length}</div><div class="stat-l">Totali Visibili</div><div class="stat-t">${ROLE_LABELS[currentUser.role]}</div></div>
+    ${stats.map(st=>`<div class="stat-card" style="--accent:${st.c}" onclick="filterByStatus('${st.l.replace(' ','')}')">
+      <div class="stat-n">${st.n}</div><div class="stat-l">${st.l}</div><div class="stat-t">${st.t}</div>
+    </div>`).join('')}
   </div>
-  <div style="display:grid;grid-template-columns:1fr 320px;gap:16px">
-    <div class="table-wrap">
-      <div class="table-header"><div class="tbl-title">Change Recenti</div><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="showPage('changes',document.getElementById('nav-changes'))">Vedi tutti →</button></div>
-      <table><thead><tr><th>ID</th><th>Titolo</th><th>Stato</th><th>Pipeline</th><th>Priorità</th><th>Assegnato</th></tr></thead>
-      <tbody>${vc.filter(c=>c.status!=='Chiuso').slice(0,7).map(c=>`
-        <tr style="cursor:pointer" onclick="openDetail('${c.id}')">
-          <td><span class="chg-id">${c.id}</span></td>
-          <td style="font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.title}</td>
-          <td>${sBadge(c.status)}</td>
-          <td>${envInline(c)}</td>
-          <td>${pBadge(c.priority)}</td>
-          <td style="color:var(--text2)">${userName(c.assigneeId)}</td>
-        </tr>`).join('')}</tbody></table>
-    </div>
-    <div>
-      <div class="card" style="margin-bottom:12px">
-        <div class="card-title">Mie Azioni Richieste</div>
-        ${getMyActions()}
-      </div>
-      <div class="card">
-        <div class="card-title">Prossime Implementazioni</div>
-        ${vc.filter(c=>c.window&&['Schedulato','Autorizzato'].includes(c.status)).map(c=>`
-          <div style="padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="openDetail('${c.id}')">
-            <div style="font-size:11px;font-family:var(--mono);color:var(--accent)">${c.window}</div>
-            <div style="font-size:13px;font-weight:500;margin-top:2px">${c.title}</div>
-          </div>`).join('') || '<div style="color:var(--text3);font-size:13px">Nessuna implementazione pianificata</div>'}
-      </div>
-    </div>
-  </div>`;
-}
-
-function getMyActions() {
-  const vc = visibleChanges();
-  const actions = [];
-  vc.forEach(c=>{
-    const trans = (TRANSITIONS[c.status]||[]).filter(t=>t.roles.includes(currentUser.role));
-    if(trans.length) actions.push({c, trans:trans[0]});
-  });
-  if(!actions.length) return '<div style="color:var(--text3);font-size:13px">Nessuna azione richiesta ✓</div>';
-  return actions.slice(0,4).map(({c,trans})=>`
-    <div style="padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="openDetail('${c.id}')">
-      <div style="font-size:13px;font-weight:500;margin-bottom:3px">${c.title}</div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span class="chg-id">${c.id}</span>
-        <span style="font-size:11px;color:var(--accent4)">${trans.label}</span>
-      </div>
-    </div>`).join('');
-}
-
-function navFilter(status) {
-  showPage('changes', document.getElementById('nav-changes'));
-  setTimeout(()=>{ const s=document.getElementById('fStatus'); if(s){ s.value=status; filterChanges(); } },50);
-}
-
-// ════════════════════════════════════════════
-// CHANGES TABLE
-// ════════════════════════════════════════════
-function renderChanges(data) {
-  const d = data || visibleChanges();
-  document.getElementById('page-changes').innerHTML=`
   <div class="table-wrap">
     <div class="table-header">
-      <div class="tbl-title">Change (${d.length})</div>
-      <div class="search-box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="fSearch" placeholder="Cerca..." oninput="filterChanges()"></div>
-      <select class="fsel" id="fStatus" onchange="filterChanges()"><option value="">Tutti gli stati</option>${Object.keys(STATUS_BADGE).map(s=>`<option>${s}</option>`).join('')}</select>
-      <select class="fsel" id="fType" onchange="filterChanges()"><option value="">Tutti i tipi</option><option>Standard</option><option>Normale</option><option>Emergenza</option></select>
-      ${canDo(['admin','change_manager','change_requestor'])?`<button class="btn btn-primary btn-sm" onclick="openNewChangeModal()">+ Nuovo</button>`:''}
+      <div class="tbl-title">Change Recenti</div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <div class="search-box">🔍 <input placeholder="Cerca..." oninput="filterTable(this.value)"></div>
+        <select class="fsel" onchange="filterByStatus(this.value)"><option value="">Tutti gli stati</option>${STATUS_ORDER.map(s=>`<option>${s}</option>`).join('')}</select>
+      </div>
     </div>
-    <table><thead><tr><th>ID</th><th>Titolo</th><th>Tipo</th><th>Priorità</th><th>Stato</th><th>Pipeline</th><th>Richiedente</th><th>Assegnato</th><th>Apertura</th><th></th></tr></thead>
-    <tbody>${d.map(c=>`
-      <tr style="cursor:pointer" onclick="openDetail('${c.id}')">
-        <td><span class="chg-id">${c.id}</span></td>
-        <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.type==='Emergenza'?'🚨 ':''}${c.title}</td>
-        <td><span class="type-tag">${c.type}</span></td>
-        <td>${pBadge(c.priority)}</td>
-        <td>${sBadge(c.status)}</td>
-        <td>${envInline(c)}</td>
-        <td style="color:var(--text2)">${userName(c.requesterId)}</td>
-        <td style="color:var(--text2)">${userName(c.assigneeId)}</td>
-        <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${c.opened}</td>
-        <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openDetail('${c.id}')">→</button></td>
-      </tr>`).join('')}</tbody></table>
+    <table><thead><tr><th>ID</th><th>Titolo</th><th>Tipo</th><th>Priorità</th><th>Stato</th><th>Richiedente</th><th>Ambiente</th></tr></thead>
+    <tbody id="changesTbody">
+      ${vc.slice(0,10).map(c=>`
+        <tr onclick="openDetail('${c.id}')" style="cursor:pointer">
+          <td class="chg-id">${c.id}</td>
+          <td style="font-weight:500">${c.title}</td>
+          <td><span class="type-tag">${c.type}</span></td>
+          <td>${pBadge(c.priority)}</td>
+          <td>${sBadge(c.status)}</td>
+          <td style="color:var(--text2)">${userName(c.requesterId)}</td>
+          <td>${envInline(c)}</td>
+        </tr>`).join('')}
+    </tbody></table>
   </div>`;
 }
 
-function filterChanges() {
-  const s   = (document.getElementById('fSearch')?.value||'').toLowerCase();
-  const st  = document.getElementById('fStatus')?.value||'';
-  const tp  = document.getElementById('fType')?.value||'';
-  const d = visibleChanges().filter(c=>
-    (!s  || c.title.toLowerCase().includes(s)||c.id.toLowerCase().includes(s)) &&
-    (!st || c.status===st) &&
-    (!tp || c.type===tp)
-  );
-  renderChanges(d);
+function filterByStatus(status) {
+  const rows = document.getElementById('changesTbody')?.querySelectorAll('tr') || [];
+  rows.forEach(r=>{
+    const txt = r.textContent.toLowerCase();
+    r.style.display = !status || txt.includes(status.toLowerCase()) ? '' : 'none';
+  });
+}
+
+function filterTable(q) {
+  const rows = document.getElementById('changesTbody')?.querySelectorAll('tr') || [];
+  const qq = q.toLowerCase();
+  rows.forEach(r=>{ r.style.display = r.textContent.toLowerCase().includes(qq) ? '' : 'none'; });
+}
+
+// ════════════════════════════════════════════
+// CHANGES LIST
+// ════════════════════════════════════════════
+function renderChanges() {
+  const vc = changes.filter(c=> canDo(['admin','change_manager']) || c.requesterId===currentUser.id || c.assigneeId===currentUser.id);
+  document.getElementById('page-changes').innerHTML = `
+  <div class="table-wrap">
+    <div class="table-header">
+      <div class="tbl-title">Tutti i Change (${vc.length})</div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <div class="search-box">🔍 <input placeholder="Cerca ID, titolo, richiedente..." oninput="filterTable(this.value)"></div>
+        <select class="fsel" onchange="renderChangesByStatus(this.value)"><option value="">Tutti</option>${STATUS_ORDER.map(s=>`<option>${s}</option>`).join('')}</select>
+      </div>
+    </div>
+    <table><thead><tr><th>ID</th><th>Titolo</th><th>Tipo</th><th>Priorità</th><th>Stato</th><th>Richiedente</th><th>Assegnato</th><th>Ambiente</th><th>Azioni</th></tr></thead>
+    <tbody id="changesTbody">
+      ${vc.map(c=>`
+        <tr>
+          <td class="chg-id">${c.id}</td>
+          <td style="font-weight:500">${c.title}</td>
+          <td><span class="type-tag">${c.type}</span></td>
+          <td>${pBadge(c.priority)}</td>
+          <td>${sBadge(c.status)}</td>
+          <td style="color:var(--text2)">${userName(c.requesterId)}</td>
+          <td style="color:var(--text2)">${userName(c.assigneeId)}</td>
+          <td>${envInline(c)}</td>
+          <td><button class="btn btn-ghost btn-xs" onclick="openDetail('${c.id}')">Dettaglio</button></td>
+        </tr>`).join('')}
+    </tbody></table>
+  </div>`;
+}
+
+function renderChangesByStatus(status) {
+  const rows = document.getElementById('changesTbody')?.querySelectorAll('tr') || [];
+  rows.forEach(r=>{
+    const txt = r.textContent;
+    r.style.display = !status || txt.includes(status) ? '' : 'none';
+  });
 }
 
 // ════════════════════════════════════════════
 // APPROVALS
 // ════════════════════════════════════════════
 function renderApprovals() {
-  const pend = visibleChanges().filter(c=>c.status==='In Review');
-  document.getElementById('page-approvals').innerHTML=`
+  const vc = changes.filter(c=> c.status==='In Review' && canDo(['change_manager','admin']));
+  document.getElementById('page-approvals').innerHTML = `
   <div class="table-wrap">
-    <div class="table-header"><div class="tbl-title">Approvazioni Pendenti</div></div>
-    <table><thead><tr><th>ID</th><th>Titolo</th><th>Tipo</th><th>Rischio</th><th>Richiedente</th><th>In attesa da</th><th>Azione</th></tr></thead>
-    <tbody>${pend.map(c=>`
-      <tr>
-        <td><span class="chg-id">${c.id}</span></td>
-        <td style="font-weight:500;cursor:pointer" onclick="openDetail('${c.id}')">${c.title}</td>
-        <td><span class="type-tag">${c.type}</span></td>
-        <td>${rBadge(c.risk)}</td>
-        <td>${userName(c.requesterId)}</td>
-        <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${c.opened}</td>
-        <td>
-          ${canDo(['change_manager','admin'])?`
-            <button class="btn btn-success btn-sm" onclick="quickTransition('${c.id}','Approvato')">✓ Approva</button>
-            <button class="btn btn-danger btn-sm" onclick="quickTransition('${c.id}','Rifiutato')" style="margin-left:5px">✕ Rifiuta</button>
-          `:'<span style="color:var(--text3);font-size:12px">Solo Change Manager</span>'}
-        </td>
-      </tr>`).join('')||`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nessuna approvazione pendente ✓</td></tr>`}
+    <div class="table-header"><div class="tbl-title">In attesa di approvazione (${vc.length})</div></div>
+    <table><thead><tr><th>ID</th><th>Titolo</th><th>Richiedente</th><th>Rischio</th><th>Impatto</th><th>Aperto il</th><th>Azioni</th></tr></thead>
+    <tbody>
+      ${vc.length? vc.map(c=>`
+        <tr>
+          <td class="chg-id">${c.id}</td>
+          <td>${c.title}</td>
+          <td>${userName(c.requesterId)}</td>
+          <td>${rBadge(c.risk)}</td>
+          <td>${rBadge(c.impact)}</td>
+          <td style="font-family:var(--mono);font-size:12px">${c.opened}</td>
+          <td>
+            <button class="btn btn-success btn-xs" onclick="quickTransition('${c.id}','Approvato')">✅ Approva</button>
+            <button class="btn btn-danger btn-xs" onclick="quickTransition('${c.id}','Rifiutato')">❌ Rifiuta</button>
+          </td>
+        </tr>`).join('')
+      : `<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:20px">Nessun change in attesa di approvazione</td></tr>`}
     </tbody></table>
   </div>`;
 }
@@ -953,50 +942,88 @@ function renderApprovals() {
 // CALENDAR
 // ════════════════════════════════════════════
 function renderCalendar() {
-  const vc = visibleChanges();
-  const sched = vc.filter(c=>c.window);
-  const scheduledDays = sched.map(c=>{ try{ return new Date(c.window).getDate(); }catch(e){return null;} }).filter(Boolean);
-  let cells='';
-  for(let i=0;i<3;i++) cells+=`<div class="cal-pg-day"></div>`;
-  for(let d=1;d<=28;d++){
-    const isToday=(d===24);
-    const has=scheduledDays.includes(d);
-    cells+=`<div class="cal-pg-day ${isToday?'today':''} ${!isToday&&has?'has-chg':''}">${d}${has&&!isToday?`<div class="cal-pip" style="background:var(--accent)"></div>`:''}</div>`;
+  const today = new Date();
+  const month = today.toLocaleString('it-IT',{month:'long', year:'numeric'}).replace(/^\w/,c=>c.toUpperCase());
+  const days = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+  
+  // Generate calendar days (simplified)
+  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div style="font-size:16px;font-weight:600">${month}</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-ghost btn-xs" onclick="renderCalendar()">🔄 Oggi</button>
+    </div>
+  </div>
+  <div class="cal-pg-hd-row">${days.map(d=>`<div class="cal-pg-hd">${d}</div>`).join('')}</div>
+  <div class="cal-pg-grid">`;
+  
+  // Simple 6-week grid
+  for(let i=1;i<=42;i++) {
+    const dayNum = i - (today.getDay()===0?6:today.getDay()-1);
+    const hasChg = changes.some(c=> c.window && c.window.startsWith(`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`));
+    const isToday = dayNum===today.getDate() && i>=(today.getDay()===0?7:today.getDay()) && i<=(today.getDay()===0?7:today.getDay())+31;
+    html += `<div class="cal-pg-day ${hasChg?'has-chg':''} ${isToday?'today':''}" onclick="filterByDate('${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}')">
+      ${dayNum>0&&dayNum<=31?dayNum:''}
+      ${hasChg?'<div class="cal-pip"></div>':''}
+    </div>`;
   }
-  document.getElementById('page-calendar').innerHTML=`
-  <div style="display:grid;grid-template-columns:1fr 280px;gap:16px">
-    <div class="card">
-      <div class="card-title">Calendario — Febbraio 2025</div>
-      <div class="cal-pg-hd-row">${['LUN','MAR','MER','GIO','VEN','SAB','DOM'].map(d=>`<div class="cal-pg-hd">${d}</div>`).join('')}</div>
-      <div class="cal-pg-grid">${cells}</div>
-    </div>
-    <div class="card">
-      <div class="card-title">Change Schedulati</div>
-      ${sched.map(c=>`
-        <div style="padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="openDetail('${c.id}')">
-          <div style="font-size:11px;font-family:var(--mono);color:var(--accent)">${c.window}</div>
-          <div style="font-size:13px;font-weight:500;margin-top:2px">${c.title}</div>
-          <div style="margin-top:3px">${sBadge(c.status)} ${envInline(c)}</div>
-        </div>`).join('')||'<div style="color:var(--text3);font-size:13px">Nessuna schedulazione</div>'}
-    </div>
-  </div>`;
+  html += `</div>`;
+  
+  document.getElementById('page-calendar').innerHTML = `
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Change Pianificati</div>
+    ${changes.filter(c=>c.window).slice(0,5).map(c=>`
+      <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:13px;font-weight:500">${c.title}</div>
+          <div style="font-size:11px;color:var(--text3);font-family:var(--mono)">${c.window} → ${c.windowEnd||'TBD'}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${sBadge(c.status)}
+          <button class="btn btn-ghost btn-xs" onclick="openDetail('${c.id}')">→</button>
+        </div>
+      </div>`).join('')||'<div style="color:var(--text3);font-size:13px">Nessun change pianificato</div>'}
+  </div>
+  ${html}`;
+}
+
+function filterByDate(dateStr) {
+  const filtered = changes.filter(c=>c.window?.startsWith(dateStr));
+  if(filtered.length) {
+    showPage('changes', document.getElementById('nav-changes'));
+    setTimeout(()=>{
+      const tbody = document.getElementById('changesTbody');
+      if(tbody) tbody.innerHTML = filtered.map(c=>`
+        <tr>
+          <td class="chg-id">${c.id}</td>
+          <td style="font-weight:500">${c.title}</td>
+          <td><span class="type-tag">${c.type}</span></td>
+          <td>${pBadge(c.priority)}</td>
+          <td>${sBadge(c.status)}</td>
+          <td style="color:var(--text2)">${userName(c.requesterId)}</td>
+          <td style="color:var(--text2)">${userName(c.assigneeId)}</td>
+          <td>${envInline(c)}</td>
+          <td><button class="btn btn-ghost btn-xs" onclick="openDetail('${c.id}')">Dettaglio</button></td>
+        </tr>`).join('');
+    },100);
+  }
 }
 
 // ════════════════════════════════════════════
 // REPORTS
 // ════════════════════════════════════════════
 function renderReports() {
-  if(!canDo(['admin','change_manager'])){ document.getElementById('page-reports').innerHTML=accessDenied('Report'); return; }
-  const vc = visibleChanges();
-  const byStatus = {};
-  vc.forEach(c=>{ byStatus[c.status]=(byStatus[c.status]||0)+1; });
-  const byType={};
-  vc.forEach(c=>{ byType[c.type]=(byType[c.type]||0)+1; });
-  const closed=vc.filter(c=>c.status==='Chiuso').length;
-  const total=vc.length;
-  document.getElementById('page-reports').innerHTML=`
+  if(!canDo(['admin','change_manager'])){ document.getElementById('page-reports').innerHTML=accessDenied('Reports'); return; }
+  const vc = changes;
+  const total = vc.length;
+  const closed = vc.filter(c=>c.status==='Chiuso').length;
+  const byStatus = Object.fromEntries(STATUS_ORDER.map(s=>[s, vc.filter(c=>c.status===s).length]));
+  const byType = {'Standard':0,'Normale':0,'Emergenza':0};
+  vc.forEach(c=>{ if(byType[c.type]!==undefined) byType[c.type]++; });
+  
+  document.getElementById('page-reports').innerHTML = `
   <div class="kpi-row">
-    <div class="kpi"><div class="kpi-v">${total}</div><div class="kpi-l">Totale Change</div></div>
+    <div class="kpi"><div class="kpi-v">${total}</div><div class="kpi-l">Totali</div></div>
+    <div class="kpi"><div class="kpi-v">${vc.filter(c=>c.status==='Aperto').length}</div><div class="kpi-l">Aperti</div></div>
     <div class="kpi"><div class="kpi-v">${closed}</div><div class="kpi-l">Chiusi</div></div>
     <div class="kpi"><div class="kpi-v">${total?Math.round(closed/total*100):0}%</div><div class="kpi-l">Success Rate</div></div>
     <div class="kpi"><div class="kpi-v">${vc.filter(c=>c.incidents&&c.incidents.length).length}</div><div class="kpi-l">Con Incidenti</div></div>
@@ -1349,8 +1376,40 @@ function addComment(id) {
 }
 
 // ════════════════════════════════════════════
-// NEW CHANGE
+// NEW CHANGE — FUNZIONE AGGIUNTA ✅
 // ════════════════════════════════════════════
+function openNewChangeModal() {
+  // 1. Resetta tutti i campi del form
+  ['nTitle','nDesc','nRollback','nTest','nStart','nEnd'].forEach(fid=>{ 
+    const el=document.getElementById(fid); 
+    if(el) el.value=''; 
+  });
+  
+  // 2. Resetta i select ai valori default
+  const defaults = {nType:'Standard', nPrio:'Media', nCat:'Server', nRisk:'Basso', nImpact:'Basso', nPipelineStrat:'full'};
+  Object.entries(defaults).forEach(([id,val])=>{
+    const el=document.getElementById(id);
+    if(el) el.value=val;
+  });
+  
+  // 3. Aggiorna anteprima pipeline
+  updatePipelinePreview();
+  
+  // 4. Popola dropdown "Assegnato a" con utenti autorizzati
+  const assigneeSel = document.getElementById('nAssignee');
+  if(assigneeSel && typeof USERS !== 'undefined' && typeof currentUser !== 'undefined') {
+    assigneeSel.innerHTML = USERS.filter(u => 
+      ['change_manager','admin','ta'].includes(u.role) || u.team === currentUser.team
+    ).map(u => `<option value="${u.id}">${u.name} (${ROLE_LABELS[u.role]||u.role})</option>`).join('');
+  }
+  
+  // 5. Apre il modal
+  openModal('newChangeModal');
+  
+  // 6. Focus sul primo campo per UX migliore
+  setTimeout(()=>document.getElementById('nTitle')?.focus(), 100);
+}
+
 function updatePipelinePreview() {
   const s = document.getElementById('nPipelineStrat')?.value;
   const m = {full:'DEV → INTEG → CERT → PROD','skip-dev':'INTEG → CERT → PROD',direct:'⚡ Direct to PROD'};
